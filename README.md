@@ -97,7 +97,39 @@ Per il deployment di produzione:
 npm run build
 ```
 
-## 📝 Proporre Pull Request
+## 🐳 Docker Compose (Sviluppo Locale)
+
+L'applicazione include una configurazione **Docker Compose** per facilitare la gestione del database di sviluppo locale.
+
+### Prerequisiti Docker
+
+- **Docker Desktop** ([Scarica da docker.com](https://www.docker.com/products/docker-desktop))
+  ```bash
+  docker --version
+  docker compose --version
+  ```
+
+### 1. Avviare i Servizi con Docker Compose
+
+```bash
+# Avviare i container (database e altri servizi)
+docker compose up -d
+
+# Visualizzare lo stato dei container
+docker compose ps
+```
+
+### 2. Eseguire le Migrazioni
+
+```bash
+# Con il database in Docker
+php artisan migrate
+
+# Opzionale: Popolare con dati di prova
+php artisan db:seed
+```
+
+## �📝 Proporre Pull Request
 
 ### 1. Creare un Branch Locale
 
