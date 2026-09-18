@@ -17,16 +17,25 @@ jobs:
       postgres:
         image: postgres:16-alpine
         env:
-          POSTGRES_DB: vigaspecialweek
+          POSTGRES_DB: vigaspecialweek_test
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
         ports:
           - 5432:5432
         options: >-
-          --health-cmd="pg_isready -U postgres -d vigaspecialweek"
+          --health-cmd="pg_isready -U postgres -d vigaspecialweek_test"
           --health-interval=10s
           --health-timeout=5s
           --health-retries=5
+
+    env:
+      APP_ENV: testing
+      DB_CONNECTION: pgsql
+      DB_HOST: 127.0.0.1
+      DB_PORT: 5432
+      DB_DATABASE: vigaspecialweek_test
+      DB_USERNAME: postgres
+      DB_PASSWORD: postgres
 
     steps:
       - name: Checkout code
