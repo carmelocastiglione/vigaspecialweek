@@ -97,6 +97,45 @@ Per il deployment di produzione:
 npm run build
 ```
 
+## 🧪 Test
+
+### Eseguire Tutti i Test
+
+```bash
+php artisan test
+```
+
+Oppure con output più compatto:
+
+```bash
+php artisan test --compact
+```
+
+### Eseguire Test Specifici
+
+Eseguire un file di test specifico:
+```bash
+php artisan test tests/Feature/SomeFeatureTest.php
+```
+
+Eseguire test per un nome specifico:
+```bash
+php artisan test --filter=testNameMethod
+```
+
+### Eseguire il Test Runner Direttamente
+
+Con Pest:
+```bash
+vendor/bin/pest
+```
+
+Con opzioni:
+```bash
+vendor/bin/pest tests/Feature/SomeFeatureTest.php
+vendor/bin/pest --filter=testNameMethod
+```
+
 ## 🐳 Docker Compose (Sviluppo Locale)
 
 L'applicazione include una configurazione **Docker Compose** per facilitare la gestione del database di sviluppo locale.
