@@ -59,4 +59,20 @@ class User extends Authenticatable implements PasskeyUser
             ? Str::substr($initials, 0, 1).Str::substr($initials, -1)
             : $initials;
     }
+
+    /**
+     * Check if the user is an admin
+     */
+    public function isAdmin(): bool
+    {
+        return false; // TODO: Implement admin role logic
+    }
+
+    /**
+     * Check if the user is currently impersonating another user
+     */
+    public function isImpersonating(): bool
+    {
+        return false; // TODO: Implement impersonation logic
+    }
 }

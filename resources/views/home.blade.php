@@ -15,7 +15,7 @@
     <link rel="icon" href="{{ asset('favicon.ico') }}" sizes="any">
     <link rel="apple-touch-icon" href="{{ asset('apple-touch-icon.png') }}">
 
-    <!-- TODO: ensure that the @fonts directive is correctly loading the required fonts -->
+    <!-- Carico i font da vite.config.js -->
     @fonts
 
     <!-- TODO: spostare questo stile in un file CSS separato solo per l'home page -->

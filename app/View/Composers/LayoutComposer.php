@@ -13,8 +13,10 @@ class LayoutComposer
             'isMaintenanceMode' => class_exists(SettingsService::class)
                 && SettingsService::isMaintenanceMode()
                 && auth()->check()
-                && auth()->user()?->isAdmin(),
-            'isImpersonating' => auth()->check() && auth()->user()?->isImpersonating(),
+                && auth()->user()->isAdmin(),
+            'isImpersonating' => auth()->check()
+                && auth()->user()->isAdmin()
+                && auth()->user()->isImpersonating(),
         ]);
     }
 }
