@@ -3,7 +3,7 @@
         <x-auth-header :title="__('Log in to your account')" :description="__('Enter your email and password below to log in')" />
 
         <!-- Session Status -->
-        <x-auth-session-status class="text-center" :status="session('status')" />
+        <x-auth-session-status class="text-center" :status="session('status')" :error="session('error')" />
 
         @if (Route::has('passkey.verify'))
         <x-passkey-verify />
