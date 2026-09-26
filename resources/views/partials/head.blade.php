@@ -12,6 +12,7 @@
 
 @vite(['resources/css/app.css', 'resources/js/app.js'])
 
-@fluxAppearance
+<!-- Setto il tema chiaro per l'applicazione disabilitando il tema scuro (class="light" nell'html). Bisogna commentare o rimuovere @fluxAppearance -->
+{{--  @fluxAppearance --}}
 
 @livewireStyles

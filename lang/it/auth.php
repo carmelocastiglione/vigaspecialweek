@@ -13,8 +13,19 @@ return [
     |
     */
 
-    'failed' => 'These credentials do not match our records.',
-    'password' => 'The provided password is incorrect.',
-    'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
+    'failed' => 'Queste credenziali non corrispondono a quelle registrate.',
+    'password' => 'La password fornita non è corretta.',
+    'throttle' => 'Troppi tentativi di accesso. Riprova tra :seconds secondi.',
 
+    // Login page
+    'Log in' => 'Accedi',
+    'Log in to your account' => 'Accedi al tuo account',
+    'Enter your email and password below to log in' => 'Inserisci la tua email e password per accedere',
+    'Email address' => 'Indirizzo email',
+    'email@example.com' => 'email@example.com',
+    'Password' => 'Password',
+    'Forgot your password?' => 'Hai dimenticato la password?',
+    'Remember me' => 'Ricordami',
+    'Don\'t have an account?' => 'Non hai un account?',
+    'Sign up' => 'Registrati',
 ];

@@ -77,6 +77,16 @@ php artisan migrate
 php artisan db:seed
 ```
 
+#### Utenti di Seed
+
+Quando esegui `php artisan db:seed`, vengono creati i seguenti utenti di prova:
+
+| Email | Ruolo | Password |
+|-------|-------|----------|
+| studente@issvigano.org | Studente | vigaspecialweek |
+| docente@issvigano.org | Docente | vigaspecialweek |
+| admin@issvigano.org | Admin | vigaspecialweek |
+
 ### 4. Avviare l'Applicazione
 
 Apri **due terminali** separati:

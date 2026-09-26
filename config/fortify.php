@@ -160,7 +160,8 @@ return [
     |
     */
 
-    'features' => [
+    // Disabled all features for now
+    'features' => [ /*
         Features::registration(),
         Features::resetPasswords(),
         Features::emailVerification(),
@@ -171,7 +172,8 @@ return [
         ]),
         Features::passkeys([
             'confirmPassword' => true,
-        ]),
+        ]), 
+        */
     ],
 
 ];
