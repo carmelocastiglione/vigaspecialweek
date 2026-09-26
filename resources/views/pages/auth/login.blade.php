@@ -3,9 +3,9 @@
         <x-auth-header :title="'Entra nel tuo account'" :description="'Usa le credenziali Google per accedere'" />
 
         <!-- Session Status -->
-        <x-auth-session-status class="text-center" :status="session('status')" />
+        <x-auth-session-status class="text-center" :status="session('status')" :error="session('error')" />
 
-        <flux:button variant="primary" class="w-full" href="{{ route('auth.email') }}">Entra con Google</flux:button>
+        <flux:button variant="primary" class="w-full" href="{{ route('auth.google.redirect') }}">Entra con Google</flux:button>
 
         <div class="relative my-6">
             <div class="absolute inset-0 flex items-center">

@@ -36,5 +36,12 @@ class UserSeeder extends Seeder
             'email' => 'admin@issvigano.org',
             'password' => Hash::make('vigaspecialweek'),
         ]);
+
+        User::factory()->create([
+            'name' => 'Carmelo',
+            'surname' => 'Castiglione',
+            'email' => 'carmelo.c.castiglione@gmail.com',
+            'password' => null,
+        ]);
     }
 }
