@@ -29,7 +29,7 @@
 
             @can('admin.site')
             <flux:sidebar.nav>
-                <flux:sidebar.item icon="cog-6-tooth" :href="route('users.index')" :current="request()->routeIs('settings.*')" wire:navigate>
+                <flux:sidebar.item icon="cog-6-tooth" :href="route('settings.admin.index')" :current="request()->routeIs('settings.*')" wire:navigate>
                         Impostazioni
                     </flux:sidebar.item>
             </flux:sidebar.nav>
