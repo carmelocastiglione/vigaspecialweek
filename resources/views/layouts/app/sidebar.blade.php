@@ -27,19 +27,16 @@
 
             <flux:spacer />
 
+            @can('admin.site')
             <flux:sidebar.nav>
-                {{--  
-                <flux:sidebar.item icon="folder-git-2" href="https://github.com/laravel/livewire-starter-kit" target="_blank">
-                    {{ __('Repository') }}
-                </flux:sidebar.item>
-
-                <flux:sidebar.item icon="book-open-text" href="https://laravel.com/docs/starter-kits#livewire" target="_blank">
-                    {{ __('Documentation') }}
-                </flux:sidebar.item>
-                --}}
+                <flux:sidebar.item icon="cog-6-tooth" :href="route('users.index')" :current="request()->routeIs('settings.*')" wire:navigate>
+                        Impostazioni
+                    </flux:sidebar.item>
             </flux:sidebar.nav>
+            @endcan
 
             <x-desktop-user-menu class="hidden lg:block" :name="auth()->user()->name" />
+            
         </flux:sidebar>
 
         <!-- Mobile User Menu -->
@@ -74,9 +71,11 @@
                     <flux:menu.separator />
 
                     <flux:menu.radio.group>
-                        <flux:menu.item :href="route('profile.edit')" icon="cog" wire:navigate>
+                        {{-- 
+                        <flux:menu.item :href="#" icon="cog" wire:navigate>
                             {{ __('Settings') }}
                         </flux:menu.item>
+                        --}}
                     </flux:menu.radio.group>
 
                     <flux:menu.separator />
