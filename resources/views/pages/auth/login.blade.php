@@ -6,17 +6,15 @@
         <x-auth-session-status class="text-center" :status="session('status')" :error="session('error')" />
 
         <flux:button variant="primary" class="w-full" href="{{ route('auth.google.redirect') }}">Entra con Google</flux:button>
+        <flux:text class="text-center">
+            Accesso per tutti gli account <span class="font-bold">issvigano.org</span>
+        </flux:text>
 
-        <div class="relative my-6">
-            <div class="absolute inset-0 flex items-center">
-                <div class="w-full border-t border-zinc-200 dark:border-zinc-700"></div>
-            </div>
-            <div class="relative flex justify-center text-xs uppercase">
-                <span class="px-2 text-zinc-500 dark:text-zinc-400 bg-white dark:bg-zinc-900">
-                    Oppure
-                </span>
-            </div>
-        </div>
-        <flux:button variant="primary" class="w-full" href="{{ route('auth.email') }}">Entra come admin</flux:button>
+        <flux:separator text="OPPURE" />
+
+        <flux:button variant="primary" class="w-full" href="{{ route('auth.email') }}">Entra con email e password</flux:button>
+        <flux:text class="text-center">
+            Usa questa opzione se ti è stata fornita un'email e una password per accedere
+        </flux:text>
     </div>
 </x-layouts::auth>
