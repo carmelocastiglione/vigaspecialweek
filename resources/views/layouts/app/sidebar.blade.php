@@ -18,8 +18,11 @@
                 </flux:sidebar.group>
                 @can('admin.site')
                 <flux:sidebar.group :heading="__('Administration')" class="grid">
-                    <flux:sidebar.item icon="user" :href="route('users.index')" :current="request()->routeIs('users.*')" wire:navigate>
+                    <flux:sidebar.item :href="route('users.index')" :current="request()->routeIs('users.*')" wire:navigate>
                         Utenti
+                    </flux:sidebar.item>
+                    <flux:sidebar.item :href="route('departments.index')" :current="request()->routeIs('departments.*')" wire:navigate>
+                        Dipartimenti
                     </flux:sidebar.item>
                 </flux:sidebar.group>
                 @endcan

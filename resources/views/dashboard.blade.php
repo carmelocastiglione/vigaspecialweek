@@ -10,6 +10,12 @@
                 href="{{ route('users.index') }}" 
             />
             <x-card-dashboard 
+                title="Dipartimenti" 
+                value="{{ $departmentsCount ?? '-' }}" 
+                label="Gestisci dipartimenti" 
+                href="{{ route('departments.index') }}" 
+            />
+            <x-card-dashboard 
                 title="Aule" 
                 value="{{ $classroomsCount ?? '-' }}" 
                 label="Gestisci aule" 

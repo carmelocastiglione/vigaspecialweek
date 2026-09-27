@@ -3,6 +3,7 @@
 2026-09-27:
 - Admin: aggiunta gestione utenti
 - Admin: aggiunto scheletro sezione impostazioni
+- Admin: aggiunta gestione dipartimenti
 
 2026-09-26:
 - Revisione pagina di login

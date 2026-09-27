@@ -24,6 +24,10 @@ Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->group(fu
     Route::livewire('/users', 'pages::users.index')->name('users.index');
     Route::livewire('/users/create', 'pages::users.create')->name('users.create');
     Route::livewire('/users/{user}/edit', 'pages::users.edit')->name('users.edit');
+    // Gestione Dipartimenti
+    Route::livewire('/departments', 'pages::departments.index')->name('departments.index');
+    Route::livewire('/departments/create', 'pages::departments.create')->name('departments.create');
+    Route::livewire('/departments/{department}/edit', 'pages::departments.edit')->name('departments.edit');
 });
 
 // require __DIR__.'/settings.php';

@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\User;
+use App\Models\Department;
 use Flux\Flux;
 use Livewire\Attributes\Title;
 use Livewire\Component;
@@ -10,7 +10,7 @@ new class extends Component
 {
     use WithPagination;
 
-    #[Title('Gestione Utenti')]
+    #[Title('Gestione Dipartimenti')]
     public string $search = '';
 
     public string $sortField = 'created_at';
@@ -19,7 +19,7 @@ new class extends Component
 
     public bool $showDeleteModal = false;
 
-    public ?User $userToDelete = null;
+    public ?Department $departmentToDelete = null;
 
     public function updatedSearch(): void
     {
@@ -36,45 +36,44 @@ new class extends Component
         }
     }
 
-    public function confirmDelete(User $user): void
+    public function confirmDelete(Department $department): void
     {
-        $this->authorize('delete', $user);
-        $this->userToDelete = $user;
+        $this->authorize('delete', $department);
+        $this->departmentToDelete = $department;
         $this->showDeleteModal = true;
     }
 
     public function delete(): void
     {
-        if (! $this->userToDelete) {
+        if (! $this->departmentToDelete) {
             return;
         }
 
-        $this->authorize('delete', $this->userToDelete);
+        $this->authorize('delete', $this->departmentToDelete);
 
-        $this->userToDelete->delete();
-        $this->userToDelete = null;
+        $this->departmentToDelete->delete();
+        $this->departmentToDelete = null;
         $this->showDeleteModal = false;
 
         session()->flash('status', [
-            'message' => 'Utente eliminato con successo!', 
+            'message' => 'Dipartimento eliminato con successo!', 
             'variant' => 'success'
         ]);
     }
 
     public function with(): array
     {
-        $this->authorize('viewAny', User::class);
+        $this->authorize('viewAny', Department::class);
 
-        $users = User::query()
+        $departments = Department::query()
             ->when($this->search, function ($query) {
-                $query->where('name', 'ilike', "%{$this->search}%")
-                    ->orWhere('email', 'ilike', "%{$this->search}%");
+                $query->where('description', 'ilike', "%{$this->search}%");
             })
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate(15);
 
         return [
-            'users' => $users,
+            'departments' => $departments,
         ];
     }
 };
@@ -84,12 +83,12 @@ new class extends Component
 <div>
     <x-status-toast />
 
-    <!-- Header -->
+    <!-- Header --> 
     <x-page-header 
-        title="Utenti"
-        description="Gestisci gli utenti"
-        createRoute="users.create"
-        createLabel="Nuovo Utente"
+        title="Dipartimenti"
+        description="Gestisci i dipartimenti"
+        createRoute="departments.create"
+        createLabel="Nuovo Dipartimento"
     />
 
     <!-- Barra di Ricerca -->
@@ -99,46 +98,40 @@ new class extends Component
             <flux:input 
                 wire:model.live="search"
                 type="text"
-                placeholder="Cerca per nome o email..."
+                placeholder="Cerca per descrizione..."
                 icon="magnifying-glass"
             />
         </flux:field>
     </flux:card>
 
-    <!-- Tabella Utenti -->
+    <!-- Tabella Dipartimenti -->
     <flux:card>
-        @if ($users->count() > 0)
-            <flux:table :paginate="$users">
+        @if ($departments->count() > 0)
+            <flux:table :paginate="$departments">
                 <flux:table.columns>
-                    <flux:table.column sortable :sorted="$sortField === 'name'" :direction="$sortDirection" wire:click="sortBy('name')">Nome Completo</flux:table.column>
-                    <flux:table.column sortable :sorted="$sortField === 'email'" :direction="$sortDirection" wire:click="sortBy('email')">Email</flux:table.column>
-                    <flux:table.column>Ruoli</flux:table.column>
+                    <flux:table.column sortable :sorted="$sortField === 'description'" :direction="$sortDirection" wire:click="sortBy('description')">Descrizione</flux:table.column>
+                    <flux:table.column sortable :sorted="$sortField === 'internal_id'" :direction="$sortDirection" wire:click="sortBy('internal_id')">ID Interno</flux:table.column>
                     <flux:table.column sortable :sorted="$sortField === 'created_at'" :direction="$sortDirection" wire:click="sortBy('created_at')">Data Creazione</flux:table.column>
                     <flux:table.column>Azioni</flux:table.column>
                 </flux:table.columns>
 
-                @foreach ($users as $user)
+                @foreach ($departments as $department)
                     <flux:table.row>
                         <flux:table.cell class="font-semibold">
-                            {{ $user->name }} {{ $user->surname }}
-                        </flux:table.cell>
-                        <flux:table.cell>{{ $user->email }}</flux:table.cell>
-                        <flux:table.cell>
-                            @forelse ($user->roles as $role)
-                                <flux:badge size="sm">{{ $role->name }}</flux:badge>
-                            @empty
-                                <span class="text-gray-500 text-sm">Nessun ruolo</span>
-                            @endforelse
+                            {{ $department->description }}
                         </flux:table.cell>
                         <flux:table.cell>
-                            {{ $user->created_at->format('d/m/Y H:i') }}
+                            {{ $department->internal_id }}
+                        </flux:table.cell>
+                        <flux:table.cell>
+                            {{ $department->created_at->format('d/m/Y H:i') }}
                         </flux:table.cell>
                         <flux:table.cell class="py-0">
                             <flux:dropdown position="bottom" align="end">
                                 <flux:button variant="ghost" size="sm" icon="ellipsis-horizontal"></flux:button>
                                 <flux:navmenu>
-                                    <flux:navmenu.item href="{{ route('users.edit', $user) }}" icon="pencil-square">Modifica</flux:navmenu.item>
-                                    <flux:navmenu.item wire:click="confirmDelete({{ $user->id }})" href="#" icon="trash" variant="danger">Elimina</flux:navmenu.item>
+                                    <flux:navmenu.item href="{{ route('departments.edit', $department) }}" icon="pencil-square">Modifica</flux:navmenu.item>
+                                    <flux:navmenu.item wire:click="confirmDelete({{ $department->id }})" href="#" icon="trash" variant="danger">Elimina</flux:navmenu.item>
                                 </flux:navmenu>
                             </flux:dropdown>
                         </flux:table.cell>
@@ -147,18 +140,18 @@ new class extends Component
             </flux:table>
         @else
             <div class="text-center py-12">
-                <p class="text-gray-500">Nessun utente trovato</p>
+                <p class="text-gray-500">Nessun dipartimento trovato</p>
             </div>
         @endif
     </flux:card>
 
     <!-- Modal Conferma Eliminazione -->
     <flux:modal wire:model="showDeleteModal">
-        <flux:heading level="2">Elimina Utente</flux:heading>
+        <flux:heading level="2">Elimina Dipartimento</flux:heading>
         
-        @if ($userToDelete)
+        @if ($departmentToDelete)
             <p class="text-gray-600 mt-4">
-                Sei sicuro di voler eliminare <strong>{{ $userToDelete->name }} {{ $userToDelete->surname }}</strong>?
+                Sei sicuro di voler eliminare <strong>{{ $departmentToDelete->description }}</strong>?
             </p>
         @endif
 

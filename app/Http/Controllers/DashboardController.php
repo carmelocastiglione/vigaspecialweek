@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Department;
 use Illuminate\View\View;
 
 class DashboardController extends Controller
@@ -14,6 +15,7 @@ class DashboardController extends Controller
         // Esegui query costose solo se l'utente è admin
         if (auth()->user()->hasRole('admin')) {
             $data['usersCount'] = User::count();
+            $data['departmentsCount'] = Department::count(); 
             $data['classroomsCount'] = 0;  // TODO: implementare
             $data['classesCount'] = 0;     // TODO: implementare
         }
