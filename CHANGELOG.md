@@ -1,5 +1,8 @@
 # Changelog
 
+2026-09-27:
+- Admin: aggiunta gestione utenti
+
 2026-09-26:
 - Revisione pagina di login
 - Aggiunta possibilità di accedere tramite SSO Google

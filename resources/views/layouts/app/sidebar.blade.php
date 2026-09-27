@@ -16,9 +16,9 @@
                         {{ __('Dashboard') }}
                     </flux:sidebar.item>
                 </flux:sidebar.group>
-                @can('admin site')
+                @can('admin.site')
                 <flux:sidebar.group :heading="__('Administration')" class="grid">
-                    <flux:sidebar.item icon="wrench-screwdriver" :href="route('users.index')" :current="request()->routeIs('users.*')" wire:navigate>
+                    <flux:sidebar.item icon="user" :href="route('users.index')" :current="request()->routeIs('users.*')" wire:navigate>
                         Utenti
                     </flux:sidebar.item>
                 </flux:sidebar.group>

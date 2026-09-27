@@ -1,0 +1,23 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\User;
+use Illuminate\View\View;
+
+class DashboardController extends Controller
+{
+    public function __invoke(): View
+    {
+        $data = [];
+
+        // Esegui query costose solo se l'utente è admin
+        if (auth()->user()->hasRole('admin')) {
+            $data['usersCount'] = User::count();
+            $data['classroomsCount'] = 0;  // TODO: implementare
+            $data['classesCount'] = 0;     // TODO: implementare
+        }
+
+        return view('dashboard', $data);
+    }
+}

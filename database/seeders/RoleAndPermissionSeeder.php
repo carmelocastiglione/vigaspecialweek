@@ -14,18 +14,37 @@ class RoleAndPermissionSeeder extends Seeder
      */
     public function run(): void
     {
-        // Reset cache
+        // ========== RESET CACHE PERMESSI ==========
         app()['cache']->forget('spatie.permission.cache');
 
-        // Creare permessi
-        Permission::firstOrCreate(['name' => 'admin site']);
+         // ========== PERMESSI GENERALI ==========
+        Permission::firstOrCreate(['name' => 'admin.site']);
 
-        // Creare ruoli
+        // ========== PERMESSI PER GESTIONE UTENTI ==========
+        Permission::firstOrCreate(['name' => 'users.view']);
+        Permission::firstOrCreate(['name' => 'users.create']);
+        Permission::firstOrCreate(['name' => 'users.edit']);
+        Permission::firstOrCreate(['name' => 'users.delete']);
+        Permission::firstOrCreate(['name' => 'users.manage_roles']);
+
+        // ========== RUOLI ==========
         $adminRole = Role::firstOrCreate(['name' => 'admin']);
         $studentRole = Role::firstOrCreate(['name' => 'student']);
         $teacherRole = Role::firstOrCreate(['name' => 'teacher']);
 
-        // Assegnare permessi ai ruoli
-        $adminRole->syncPermissions(['admin site']);
+        // ========== ASSEGNA PERMESSI AI RUOLI ==========
+        // Admin ha TUTTI i permessi
+        $adminRole->syncPermissions([
+            'admin.site',
+            'users.view',
+            'users.create',
+            'users.edit',
+            'users.delete',
+            'users.manage_roles'
+        ]);
+
+        // Student e Teacher non hanno permessi per gli utenti
+        $studentRole->syncPermissions([]);
+        $teacherRole->syncPermissions([]);
     }
 }
