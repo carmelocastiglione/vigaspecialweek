@@ -18,16 +18,14 @@ class RoleAndPermissionSeeder extends Seeder
         app()['cache']->forget('spatie.permission.cache');
 
         // Creare permessi
-        Permission::firstOrCreate(['name' => 'manage users']);
+        Permission::firstOrCreate(['name' => 'admin site']);
 
         // Creare ruoli
-        Role::firstOrCreate(['name' => 'admin']);
-        Role::firstOrCreate(['name' => 'student']);
-        Role::firstOrCreate(['name' => 'teacher']);
+        $adminRole = Role::firstOrCreate(['name' => 'admin']);
+        $studentRole = Role::firstOrCreate(['name' => 'student']);
+        $teacherRole = Role::firstOrCreate(['name' => 'teacher']);
 
         // Assegnare permessi ai ruoli
-        // $editorRole->syncPermissions(['create articles', 'edit articles']);
-        // $viewerRole->syncPermissions(['view articles']);
-
+        $adminRole->syncPermissions(['admin site']);
     }
 }
