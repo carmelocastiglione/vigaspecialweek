@@ -27,6 +27,18 @@ class RoleAndPermissionSeeder extends Seeder
         Permission::firstOrCreate(['name' => 'users.delete']);
         Permission::firstOrCreate(['name' => 'users.manage_roles']);
 
+        // ========== PERMESSI PER GESTIONE DIPARTIMENTI ==========
+        Permission::firstOrCreate(['name' => 'departments.view']);
+        Permission::firstOrCreate(['name' => 'departments.create']);
+        Permission::firstOrCreate(['name' => 'departments.edit']);
+        Permission::firstOrCreate(['name' => 'departments.delete']);
+
+        // ========== PERMESSI PER GESTIONE CATEGORIE ==========
+        Permission::firstOrCreate(['name' => 'categories.view']);
+        Permission::firstOrCreate(['name' => 'categories.create']);
+        Permission::firstOrCreate(['name' => 'categories.edit']);
+        Permission::firstOrCreate(['name' => 'categories.delete']);
+
         // ========== RUOLI ==========
         $adminRole = Role::firstOrCreate(['name' => 'admin']);
         $studentRole = Role::firstOrCreate(['name' => 'student']);
@@ -40,7 +52,15 @@ class RoleAndPermissionSeeder extends Seeder
             'users.create',
             'users.edit',
             'users.delete',
-            'users.manage_roles'
+            'users.manage_roles',
+            'departments.view',
+            'departments.create',
+            'departments.edit',
+            'departments.delete',
+            'categories.view',
+            'categories.create',
+            'categories.edit',
+            'categories.delete'
         ]);
 
         // Student e Teacher non hanno permessi per gli utenti

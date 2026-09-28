@@ -28,6 +28,10 @@ Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->group(fu
     Route::livewire('/departments', 'pages::departments.index')->name('departments.index');
     Route::livewire('/departments/create', 'pages::departments.create')->name('departments.create');
     Route::livewire('/departments/{department}/edit', 'pages::departments.edit')->name('departments.edit');
+    // Gestione Categorie
+    Route::livewire('/categories', 'pages::categories.index')->name('categories.index');
+    Route::livewire('/categories/create', 'pages::categories.create')->name('categories.create');
+    Route::livewire('/categories/{category}/edit', 'pages::categories.edit')->name('categories.edit');
 });
 
 // require __DIR__.'/settings.php';

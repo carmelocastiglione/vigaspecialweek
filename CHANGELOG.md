@@ -1,5 +1,8 @@
 # Changelog
 
+2026-09-28:
+- Aggiunta gestione categorie
+
 2026-09-27:
 - Admin: aggiunta gestione utenti
 - Admin: aggiunto scheletro sezione impostazioni

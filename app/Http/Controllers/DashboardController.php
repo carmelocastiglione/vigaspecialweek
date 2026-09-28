@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Department;
+use App\Models\Category;
 use Illuminate\View\View;
 
 class DashboardController extends Controller
@@ -16,6 +17,7 @@ class DashboardController extends Controller
         if (auth()->user()->hasRole('admin')) {
             $data['usersCount'] = User::count();
             $data['departmentsCount'] = Department::count(); 
+            $data['categoriesCount'] = Category::count();     
             $data['classroomsCount'] = 0;  // TODO: implementare
             $data['classesCount'] = 0;     // TODO: implementare
         }
