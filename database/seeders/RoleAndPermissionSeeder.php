@@ -39,6 +39,12 @@ class RoleAndPermissionSeeder extends Seeder
         Permission::firstOrCreate(['name' => 'categories.edit']);
         Permission::firstOrCreate(['name' => 'categories.delete']);
 
+        // ========== PERMESSI PER GESTIONE AULE ==========
+        Permission::firstOrCreate(['name' => 'classrooms.view']);
+        Permission::firstOrCreate(['name' => 'classrooms.create']);
+        Permission::firstOrCreate(['name' => 'classrooms.edit']);
+        Permission::firstOrCreate(['name' => 'classrooms.delete']);
+
         // ========== RUOLI ==========
         $adminRole = Role::firstOrCreate(['name' => 'admin']);
         $studentRole = Role::firstOrCreate(['name' => 'student']);
@@ -60,7 +66,11 @@ class RoleAndPermissionSeeder extends Seeder
             'categories.view',
             'categories.create',
             'categories.edit',
-            'categories.delete'
+            'categories.delete',
+            'classrooms.view',
+            'classrooms.create',
+            'classrooms.edit',
+            'classrooms.delete',
         ]);
 
         // Student e Teacher non hanno permessi per gli utenti

@@ -31,7 +31,7 @@
                 title="Aule" 
                 value="{{ $classroomsCount ?? '-' }}" 
                 label="Gestisci aule" 
-                href="#" 
+                href="{{ route('classrooms.index') }}" 
             />
             <x-card-dashboard 
                 title="Classi" 

@@ -30,6 +30,9 @@
                     <flux:sidebar.item :href="route('subjects.index')" :current="request()->routeIs('subjects.*')" wire:navigate>
                         Materie
                     </flux:sidebar.item>
+                    <flux:sidebar.item :href="route('classrooms.index')" :current="request()->routeIs('classrooms.*')" wire:navigate>
+                        Aule
+                    </flux:sidebar.item>
                 </flux:sidebar.group>
                 @endcan
             </flux:sidebar.nav>

@@ -36,6 +36,10 @@ Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->group(fu
     Route::livewire('/subjects', 'pages::subjects.index')->name('subjects.index');
     Route::livewire('/subjects/create', 'pages::subjects.create')->name('subjects.create');
     Route::livewire('/subjects/{subject}/edit', 'pages::subjects.edit')->name('subjects.edit');
+    // Gestione Aule
+    Route::livewire('/classrooms', 'pages::classrooms.index')->name('classrooms.index');
+    Route::livewire('/classrooms/create', 'pages::classrooms.create')->name('classrooms.create');
+    Route::livewire('/classrooms/{classroom}/edit', 'pages::classrooms.edit')->name('classrooms.edit');
 });
 
 // require __DIR__.'/settings.php';
