@@ -22,6 +22,12 @@
                 href="{{ route('categories.index') }}" 
             />
             <x-card-dashboard 
+                title="Materie" 
+                value="{{ $subjectsCount ?? '-' }}" 
+                label="Gestisci matierie" 
+                href="{{ route('subjects.index') }}" 
+            />
+            <x-card-dashboard 
                 title="Aule" 
                 value="{{ $classroomsCount ?? '-' }}" 
                 label="Gestisci aule" 

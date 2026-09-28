@@ -32,6 +32,10 @@ Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->group(fu
     Route::livewire('/categories', 'pages::categories.index')->name('categories.index');
     Route::livewire('/categories/create', 'pages::categories.create')->name('categories.create');
     Route::livewire('/categories/{category}/edit', 'pages::categories.edit')->name('categories.edit');
+    // Gestione Materie
+    Route::livewire('/subjects', 'pages::subjects.index')->name('subjects.index');
+    Route::livewire('/subjects/create', 'pages::subjects.create')->name('subjects.create');
+    Route::livewire('/subjects/{subject}/edit', 'pages::subjects.edit')->name('subjects.edit');
 });
 
 // require __DIR__.'/settings.php';

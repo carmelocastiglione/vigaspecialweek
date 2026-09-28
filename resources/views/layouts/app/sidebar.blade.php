@@ -27,6 +27,9 @@
                     <flux:sidebar.item :href="route('categories.index')" :current="request()->routeIs('categories.*')" wire:navigate>
                         Categorie
                     </flux:sidebar.item>
+                    <flux:sidebar.item :href="route('subjects.index')" :current="request()->routeIs('subjects.*')" wire:navigate>
+                        Materie
+                    </flux:sidebar.item>
                 </flux:sidebar.group>
                 @endcan
             </flux:sidebar.nav>

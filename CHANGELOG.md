@@ -2,6 +2,7 @@
 
 2026-09-28:
 - Aggiunta gestione categorie
+- Aggiunta gestione materie
 
 2026-09-27:
 - Admin: aggiunta gestione utenti
