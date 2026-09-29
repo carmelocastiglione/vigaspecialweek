@@ -1,5 +1,13 @@
 <?php
-
+    /**
+     * Track enum values:
+     * - itt: biennio tecnologico
+     * - itc: biennio economico
+     * - tecnologico: triennio tecnologico
+     * - economico: triennio economico
+     * - tutti gli altri (turistico, afm, rim, informatica, grafica, elettronica, meccatronica): indirizzi del triennio
+     */
+    
 namespace App\Enums;
 
 enum Track: string
@@ -13,6 +21,8 @@ enum Track: string
     case MECCATRONICA = 'meccatronica';
     case ITC = 'itc';
     case ITT = 'itt';
+    case TECNOLOGICO = 'tecnologico';
+    case ECONOMICO = 'economico';
 
     public function label(): string
     {
@@ -26,6 +36,8 @@ enum Track: string
             self::MECCATRONICA => 'Meccatronica',
             self::ITC => 'ITC',
             self::ITT => 'ITT',
+            self::TECNOLOGICO => 'Tecnologico',
+            self::ECONOMICO => 'Economico',
         };
     }
 
