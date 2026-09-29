@@ -35,9 +35,9 @@
             />
             <x-card-dashboard 
                 title="Classi" 
-                value="{{ $classesCount ?? '-' }}" 
+                value="{{ $schoolClassesCount ?? '-' }}" 
                 label="Gestisci classi" 
-                href="#" 
+                href="{{ route('school-classes.index') }}" 
             />
         </div>
         @endcan

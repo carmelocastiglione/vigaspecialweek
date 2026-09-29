@@ -40,6 +40,10 @@ Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->group(fu
     Route::livewire('/classrooms', 'pages::classrooms.index')->name('classrooms.index');
     Route::livewire('/classrooms/create', 'pages::classrooms.create')->name('classrooms.create');
     Route::livewire('/classrooms/{classroom}/edit', 'pages::classrooms.edit')->name('classrooms.edit');
+    // Gestione Classi
+    Route::livewire('/school-classes', 'pages::school-classes.index')->name('school-classes.index');
+    Route::livewire('/school-classes/create', 'pages::school-classes.create')->name('school-classes.create');
+    Route::livewire('/school-classes/{schoolClass}/edit', 'pages::school-classes.edit')->name('school-classes.edit');
 });
 
 // require __DIR__.'/settings.php';

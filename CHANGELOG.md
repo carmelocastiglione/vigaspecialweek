@@ -1,5 +1,8 @@
 # Changelog
 
+2026-09-29:
+- Aggiunta gestione classi
+
 2026-09-28:
 - Aggiunta gestione categorie
 - Aggiunta gestione materie
