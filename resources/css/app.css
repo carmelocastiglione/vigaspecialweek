@@ -42,9 +42,14 @@
     --color-accent-foreground: var(--color-white);
     */
 
-    --color-accent: var(--color-violet-500);
-    --color-accent-content: var(--color-violet-600);
+    /* Primary Accent: Purple → Pink */
+    --color-accent: var(--color-purple-600);
+    --color-accent-content: var(--color-purple-700);
     --color-accent-foreground: var(--color-white);
+
+    /* Secondary Accents per il tema completo */
+    --color-secondary: var(--color-cyan-500);
+    --color-tertiary: var(--color-yellow-500);
 }
 
 @layer theme {
@@ -55,9 +60,10 @@
         --color-accent-foreground: var(--color-neutral-800);
     }
     */
-        .dark {
-        --color-accent: var(--color-violet-500);
-        --color-accent-content: var(--color-violet-400);
+    .dark {
+        /* Dark mode: Usa Pink come accent principale */
+        --color-accent: var(--color-pink-500);
+        --color-accent-content: var(--color-pink-400);
         --color-accent-foreground: var(--color-white);
     }
 }

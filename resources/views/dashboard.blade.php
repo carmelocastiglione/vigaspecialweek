@@ -24,7 +24,7 @@
             <x-card-dashboard 
                 title="Materie" 
                 value="{{ $subjectsCount ?? '-' }}" 
-                label="Gestisci matierie" 
+                label="Gestisci materie" 
                 href="{{ route('subjects.index') }}" 
             />
             <x-card-dashboard 
