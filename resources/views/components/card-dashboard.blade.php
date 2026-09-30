@@ -1,4 +1,4 @@
-<div class="group relative rounded-2xl border border-gray-200 bg-white p-6 hover:border-accent hover:shadow-xl transition-all duration-300 overflow-hidden">
+<div class="group relative rounded-2xl border border-violet-200 bg-gradient-to-b from-violet-50 to-violet-100 dark:border-violet-700 dark:bg-gradient-to-b dark:from-violet-950 dark:to-violet-900 p-6 hover:border-accent hover:shadow-xl transition-all duration-300 overflow-hidden">
     <!-- Gradient Background on Hover -->
     <div class="absolute inset-0 rounded-2xl bg-gradient-to-br from-accent/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
     
@@ -17,7 +17,7 @@
         </div>
 
         <!-- Value with Gradient -->
-        <flux:heading size="2xl" class="mt-0 mb-4 text-transparent bg-gradient-to-r from-accent to-accent/70 bg-clip-text">
+        <flux:heading size="2xl" class="font-semibold mt-0 mb-4 text-transparent bg-gradient-to-r from-accent to-accent/70 bg-clip-text">
             {{ $value }}
         </flux:heading>
 
