@@ -67,12 +67,7 @@ new class extends Component
 
         $schoolClasses = SchoolClass::query()
             ->when($this->search, function ($query) {
-                if (is_numeric($this->search)) {
-                    $query->where('year', $this->search)
-                          ->orWhere('section', 'ilike', "%{$this->search}%");
-                } else {
-                    $query->where('section', 'ilike', "%{$this->search}%");
-                }
+                $query->where('description', 'ilike', "%{$this->search}%");
             })
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate(15);
@@ -103,7 +98,7 @@ new class extends Component
             <flux:input 
                 wire:model.live="search"
                 type="text"
-                placeholder="Cerca per anno o sezione..."
+                placeholder="Cerca per classe..."
                 icon="magnifying-glass"
             />
         </flux:field>
@@ -114,6 +109,7 @@ new class extends Component
         @if ($schoolClasses->count() > 0)
             <flux:table :paginate="$schoolClasses">
                 <flux:table.columns>
+                    <flux:table.column sortable :sorted="$sortField === 'description'" :direction="$sortDirection" wire:click="sortBy('description')">Descrizione</flux:table.column>
                     <flux:table.column sortable :sorted="$sortField === 'year'" :direction="$sortDirection" wire:click="sortBy('year')">Anno</flux:table.column>
                     <flux:table.column sortable :sorted="$sortField === 'section'" :direction="$sortDirection" wire:click="sortBy('section')">Sezione</flux:table.column>
                     <flux:table.column sortable :sorted="$sortField === 'internal_id'" :direction="$sortDirection" wire:click="sortBy('internal_id')">ID Interno</flux:table.column>
@@ -124,6 +120,9 @@ new class extends Component
 
                 @foreach ($schoolClasses as $schoolClass)
                     <flux:table.row>
+                        <flux:table.cell class="font-semibold">
+                            {{ $schoolClass->description }}
+                        </flux:table.cell>
                         <flux:table.cell class="font-semibold">
                             {{ $schoolClass->year }}
                         </flux:table.cell>
@@ -164,7 +163,7 @@ new class extends Component
         
         @if ($schoolClassToDelete)
             <p class="text-gray-600 mt-4">
-                Sei sicuro di voler eliminare <strong>{{ $schoolClassToDelete->year }}{{ $schoolClassToDelete->section }}</strong>?
+                Sei sicuro di voler eliminare <strong>{{ $schoolClassToDelete->description }}</strong>?
             </p>
         @endif
 

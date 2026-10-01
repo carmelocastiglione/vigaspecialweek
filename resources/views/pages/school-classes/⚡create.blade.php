@@ -9,6 +9,7 @@ use Illuminate\Validation\Rule;
 new class extends Component
 {
     #[Title('Crea Nuova Classe')]
+    public string $description = '';
     public ?string $internal_id = '';
     public int $year = 1;
     public string $section = '';
@@ -17,6 +18,7 @@ new class extends Component
     protected function rules(): array
     {
         return [
+            'description' => ['required', 'string', 'max:255'],
             'internal_id' => ['nullable', 'string', 'max:10', 'unique:school_classes,internal_id'],
             'year' => ['required', 'integer', 'min:1', 'max:5', Rule::unique('school_classes')->where('year', $this->year)->where('section', $this->section)],
             'section' => ['required', 'string', 'max:2'],
@@ -31,6 +33,7 @@ new class extends Component
         $validated = $this->validate();
 
         $data = [
+            'description' => $validated['description'],
             'internal_id' => filled($validated['internal_id']) ? $validated['internal_id'] : null,
             'year' => $validated['year'],
             'section' => $validated['section'],
@@ -63,6 +66,28 @@ new class extends Component
     <!-- Form -->
     <flux:card>
         <form wire:submit="save" class="space-y-6">
+            <!-- Descrizione -->
+            <flux:field>
+                <flux:label>Descrizione <span class="text-red-500 ml-1">*</span></flux:label>
+                <flux:input 
+                    wire:model="description"
+                    type="text"
+                    placeholder="es. 3I"
+                />
+                <flux:error name="description" />
+            </flux:field>
+
+            <!-- ID Interno -->
+            <flux:field>
+                <flux:label>ID Interno</flux:label>
+                <flux:input 
+                    wire:model="internal_id"
+                    type="text"
+                    placeholder="es. 3I"
+                />
+                <flux:error name="internal_id" />
+            </flux:field>
+            
             <!-- Anno -->
             <flux:field>
                 <flux:label>Anno <span class="text-red-500 ml-1">*</span></flux:label>
@@ -82,7 +107,7 @@ new class extends Component
                 <flux:input 
                     wire:model="section"
                     type="text"
-                    placeholder="es. A"
+                    placeholder="es. I"
                 />
                 <flux:error name="section" />
             </flux:field>
@@ -97,17 +122,6 @@ new class extends Component
                     @endforeach
                 </flux:select>
                 <flux:error name="track" />
-            </flux:field>
-
-            <!-- ID Interno -->
-            <flux:field>
-                <flux:label>ID Interno</flux:label>
-                <flux:input 
-                    wire:model="internal_id"
-                    type="text"
-                    placeholder="es. T.01"
-                />
-                <flux:error name="internal_id" />
             </flux:field>
 
             <!-- Pulsanti -->

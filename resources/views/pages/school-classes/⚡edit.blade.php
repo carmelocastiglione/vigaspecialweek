@@ -10,6 +10,7 @@ new class extends Component
 {
     #[Title('Modifica Classe')]
     public SchoolClass $schoolClass;
+    public string $description = '';
     public ?string $internal_id = '';
     public int $year = 1;
     public string $section = '';
@@ -18,6 +19,7 @@ new class extends Component
     public function mount(SchoolClass $schoolClass): void
     {
         $this->schoolClass = $schoolClass;
+        $this->description = $schoolClass->description;
         $this->internal_id = $schoolClass->internal_id;
         $this->year = $schoolClass->year;
         $this->section = $schoolClass->section;
@@ -27,6 +29,7 @@ new class extends Component
     protected function rules(): array
     {
         return [
+            'description' => ['required', 'string', 'max:255'],
             'internal_id' => ['nullable', 'string', 'max:10', 'unique:school_classes,internal_id,' . $this->schoolClass->id],
             'year' => ['required', 'integer', 'min:1', 'max:5', Rule::unique('school_classes')->where('year', $this->year)->where('section', $this->section)->ignore($this->schoolClass->id)],
             'section' => ['required', 'string', 'max:2'],
@@ -41,6 +44,7 @@ new class extends Component
         $validated = $this->validate();
 
         $this->schoolClass->update([
+            'description' => $validated['description'],
             'internal_id' => filled($validated['internal_id']) ? $validated['internal_id'] : null,
             'year' => $validated['year'],
             'section' => $validated['section'],
@@ -65,12 +69,24 @@ new class extends Component
     <!-- Header -->
     <div class="mb-6">
         <flux:heading size="lg">Modifica Classe</flux:heading>
-        <p class="text-gray-600 mt-2">{{ $schoolClass->year }}{{ $schoolClass->section }}</p>
+        <p class="text-gray-600 mt-2">{{ $schoolClass->description }}</p>
     </div>
 
     <!-- Form -->
     <flux:card>
         <form wire:submit="save" class="space-y-6">
+
+            <!-- Descrizione -->
+            <flux:field>
+                <flux:label>Descrizione <span class="text-red-500 ml-1">*</span></flux:label>
+                <flux:input 
+                    wire:model="description"
+                    type="text"
+                    maxlength="255"
+                    placeholder="es. 1A"
+                />
+                <flux:error name="description" />
+            </flux:field>
 
             <!-- ID Interno -->
             <flux:field>

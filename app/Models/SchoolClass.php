@@ -16,7 +16,7 @@ use App\Enums\Track;
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  */
-#[Fillable(['internal_id', 'year', 'section', 'track'])]
+#[Fillable(['description', 'internal_id', 'year', 'section', 'track'])]
 
 class SchoolClass extends Model
 {

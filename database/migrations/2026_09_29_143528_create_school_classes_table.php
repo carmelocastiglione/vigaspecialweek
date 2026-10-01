@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('school_classes', function (Blueprint $table) {
             $table->id();
+            $table->string('description')->unique();
             $table->string('internal_id')->nullable()->unique();
             $table->unsignedTinyInteger('year'); // 1..5
             $table->string('section', 2); // a letter, allow 2 for flexibility
