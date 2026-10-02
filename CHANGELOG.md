@@ -1,5 +1,11 @@
 # Changelog
 
+2026-10-02:
+- Aggiunta gestione attività di potenziamento e recupero
+
+2026-10-01:
+- Aggiunta gestione attività
+
 2026-09-29:
 - Aggiunta gestione classi
 

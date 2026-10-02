@@ -2,10 +2,9 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Database\Seeder;
-use App\Models\SchoolClass;
 use App\Enums\Track;
+use App\Models\SchoolClass;
+use Illuminate\Database\Seeder;
 
 class SchoolClassSeeder extends Seeder
 {
@@ -19,7 +18,7 @@ class SchoolClassSeeder extends Seeder
             'internal_id' => '1A',
             'year' => 1,
             'section' => 'A',
-            'track' => Track::ITC,
+            'track' => Track::AFM,
         ]);
 
         SchoolClass::create([
@@ -27,7 +26,7 @@ class SchoolClassSeeder extends Seeder
             'internal_id' => '1B',
             'year' => 1,
             'section' => 'B',
-            'track' => Track::ITC,
+            'track' => Track::AFM,
         ]);
 
         SchoolClass::create([
@@ -35,7 +34,7 @@ class SchoolClassSeeder extends Seeder
             'internal_id' => '1C',
             'year' => 1,
             'section' => 'C',
-            'track' => Track::ITC,
+            'track' => Track::RIM,
         ]);
 
         SchoolClass::create([
@@ -43,7 +42,7 @@ class SchoolClassSeeder extends Seeder
             'internal_id' => '1D',
             'year' => 1,
             'section' => 'D',
-            'track' => Track::ITC,
+            'track' => Track::RIM,
         ]);
 
         SchoolClass::create([
