@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\Subject;
 use App\Models\Classroom;
 use App\Models\SchoolClass;
+use App\Models\Activity;
 
 use Illuminate\View\View;
 
@@ -25,6 +26,7 @@ class DashboardController extends Controller
             $data['subjectsCount'] = Subject::count();    
             $data['classroomsCount'] = Classroom::count();
             $data['schoolClassesCount'] = SchoolClass::count();
+            $data['activitiesCount'] = Activity::count();
         }
 
         return view('dashboard', $data);

@@ -61,6 +61,14 @@ class RoleAndPermissionSeeder extends Seeder
         Permission::firstOrCreate(['name' => 'school-classes.restore']);
         Permission::firstOrCreate(['name' => 'school-classes.forceDelete']);
 
+        // ========== PERMESSI PER GESTIONE ATTIVITÀ ==========
+        Permission::firstOrCreate(['name' => 'activities.view']);
+        Permission::firstOrCreate(['name' => 'activities.create']);
+        Permission::firstOrCreate(['name' => 'activities.edit']);
+        Permission::firstOrCreate(['name' => 'activities.delete']);
+        Permission::firstOrCreate(['name' => 'activities.restore']);
+        Permission::firstOrCreate(['name' => 'activities.forceDelete']);
+
         // ========== RUOLI ==========
         $adminRole = Role::firstOrCreate(['name' => 'admin']);
         $studentRole = Role::firstOrCreate(['name' => 'student']);
@@ -101,6 +109,12 @@ class RoleAndPermissionSeeder extends Seeder
             'school-classes.delete',
             'school-classes.restore',
             'school-classes.forceDelete',
+            'activities.view',
+            'activities.create',
+            'activities.edit',
+            'activities.delete',
+            'activities.restore',
+            'activities.forceDelete',
         ]);
 
         // Student e Teacher non hanno permessi per gli utenti

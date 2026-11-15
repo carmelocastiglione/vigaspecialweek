@@ -39,6 +39,12 @@
                 label="Gestisci classi" 
                 href="{{ route('school-classes.index') }}" 
             />
+            <x-card-dashboard 
+                title="Attività" 
+                value="{{ $activitiesCount ?? '-' }}" 
+                label="Gestisci attività" 
+                href="{{ route('activities.index') }}" 
+            />
         </div>
         @endcan
     </div>
