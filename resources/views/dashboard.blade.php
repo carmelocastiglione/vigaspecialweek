@@ -45,6 +45,14 @@
                 label="Gestisci attività" 
                 href="{{ route('activities.index') }}" 
             />
+            @role('admin')
+            <x-card-dashboard
+                title="Like"
+                value="{{ $likesCount }}"
+                label="Visualizza like per attività"
+                href="{{ route('admin.likes') }}"
+            />
+            @endrole
         </div>
         @endcan
     </div>

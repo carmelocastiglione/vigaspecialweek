@@ -2,12 +2,21 @@
 
 namespace App\Policies;
 
-use App\Models\User;
 use App\Models\Activity;
-use Illuminate\Auth\Access\Response;
+use App\Models\User;
 
 class ActivityPolicy
 {
+    public function browseStudentActivities(User $user): bool
+    {
+        return $user->hasRole('student');
+    }
+
+    public function likeActivityAsStudent(User $user, Activity $activity): bool
+    {
+        return $this->browseStudentActivities($user);
+    }
+
     /**
      * Determine whether the user can view any models.
      */
@@ -63,5 +72,4 @@ class ActivityPolicy
     {
         return $user->can('activities.forceDelete');
     }
-
 }

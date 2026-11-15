@@ -16,6 +16,13 @@
                         {{ __('Dashboard') }}
                     </flux:sidebar.item>
                 </flux:sidebar.group>
+                @role('student')
+                <flux:sidebar.group :heading="__('Student Menu')" class="grid">
+                    <flux:sidebar.item :href="route('student.activities')" :current="request()->routeIs('student.activities*')" wire:navigate>
+                        Attività
+                    </flux:sidebar.item>
+                </flux:sidebar.group>
+                @endrole
                 @can('admin.site')
                 <flux:sidebar.group :heading="__('Administration')" class="grid">
                     <flux:sidebar.item :href="route('users.index')" :current="request()->routeIs('users.*')" wire:navigate>
@@ -39,6 +46,11 @@
                     <flux:sidebar.item :href="route('activities.index')" :current="request()->routeIs('activities.*')" wire:navigate>
                         Attività
                     </flux:sidebar.item>
+                    @role('admin')
+                    <flux:sidebar.item :href="route('admin.likes')" :current="request()->routeIs('admin.likes')" wire:navigate>
+                        Like
+                    </flux:sidebar.item>
+                    @endrole
                 </flux:sidebar.group>
                 @endcan
             </flux:sidebar.nav>

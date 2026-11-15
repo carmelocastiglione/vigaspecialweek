@@ -1,5 +1,8 @@
 # Changelog
 
+2026-11-15:
+- Aggiunta pagina like per gli studenti e per gli admin
+
 2026-10-02:
 - Aggiunta gestione attività di potenziamento e recupero
 

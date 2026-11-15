@@ -1,8 +1,8 @@
 <?php
 
 use App\Http\Controllers\Auth\SocialAuthController;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
+use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'home')->name('home');
 
@@ -15,6 +15,11 @@ Route::get('/auth/google/callback', [SocialAuthController::class, 'handleGoogleC
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', DashboardController::class)->name('dashboard');
+});
+
+Route::middleware(['auth', 'verified', 'role:student'])->group(function () {
+    Route::livewire('/student/activities', 'pages::student.activities')->name('student.activities');
+    Route::livewire('/student/activities/{activity}', 'pages::student.activity-details')->name('student.activities.show');
 });
 
 Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->group(function () {
@@ -48,6 +53,7 @@ Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->group(fu
     Route::livewire('/activities', 'pages::activities.index')->name('activities.index');
     Route::livewire('/activities/create', 'pages::activities.create')->name('activities.create');
     Route::livewire('/activities/{activity}/edit', 'pages::activities.edit')->name('activities.edit');
+    Route::livewire('/likes', 'pages::likes.index')->name('admin.likes');
 });
 
 // require __DIR__.'/settings.php';

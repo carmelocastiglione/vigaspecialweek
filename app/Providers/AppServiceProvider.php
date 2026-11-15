@@ -2,12 +2,13 @@
 
 namespace App\Providers;
 
+use App\Models\Activity;
 use App\View\Composers\LayoutComposer;
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\Rules\Password;
 
@@ -28,9 +29,19 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->configureDefaults();
         $this->registerViewComposers();
-        // Implicitly grant "admin" role all permissions
-        // Se l'utente è admin, bypassa tutti i gate/permission check
-        Gate::before(function ($user, $ability) {
+
+        // Spatie può autorizzare prima di questo controllo se esiste un permesso con lo stesso nome dell'abilità.
+        Gate::before(function ($user, $ability, array $arguments) {
+            // Il primo argomento è il modello interessato o la sua classe.
+            $subject = $arguments[0] ?? null;
+
+            if (($subject === Activity::class || $subject instanceof Activity)
+                && in_array($ability, ['browseStudentActivities', 'likeActivityAsStudent'], true)) {
+                // Per queste azioni essere admin non basta: null lascia decidere ai controlli successivi e alla policy.
+                return null;
+            }
+
+            // Per le altre azioni autorizza gli admin; null lascia decidere ai controlli successivi e alle policy.
             return $user->hasRole('admin') ? true : null;
         });
     }
