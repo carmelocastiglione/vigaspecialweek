@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Attributes\Fillable;
-use Illuminate\Database\Eloquent\Model;
-use Carbon\Carbon; 
 use App\Enums\Track;
+use Carbon\Carbon;
+use Database\Factories\SchoolClassFactory;
+use Illuminate\Database\Eloquent\Attributes\Fillable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property string|null $internal_id
@@ -20,6 +22,9 @@ use App\Enums\Track;
 
 class SchoolClass extends Model
 {
+    /** @use HasFactory<SchoolClassFactory> */
+    use HasFactory;
+
     protected function casts(): array
     {
         return [

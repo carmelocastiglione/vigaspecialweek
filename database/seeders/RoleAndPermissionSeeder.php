@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
@@ -17,7 +16,7 @@ class RoleAndPermissionSeeder extends Seeder
         // ========== RESET CACHE PERMESSI ==========
         app()['cache']->forget('spatie.permission.cache');
 
-         // ========== PERMESSI GENERALI ==========
+        // ========== PERMESSI GENERALI ==========
         Permission::firstOrCreate(['name' => 'admin.site']);
 
         // ========== PERMESSI PER GESTIONE UTENTI ==========
@@ -35,7 +34,7 @@ class RoleAndPermissionSeeder extends Seeder
         Permission::firstOrCreate(['name' => 'departments.edit']);
         Permission::firstOrCreate(['name' => 'departments.delete']);
         Permission::firstOrCreate(['name' => 'departments.restore']);
-        Permission::firstOrCreate(['name' => 'departments.forceDelete']);   
+        Permission::firstOrCreate(['name' => 'departments.forceDelete']);
 
         // ========== PERMESSI PER GESTIONE CATEGORIE ==========
         Permission::firstOrCreate(['name' => 'categories.view']);

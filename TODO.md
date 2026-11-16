@@ -3,6 +3,7 @@
 - Completare la pagina di gestione attività
 - Controllare la pagina dei like alle attività per studenti e admin
 - Aggiungere pagina attività per docenti (con visualizzazione dei like ricevuti)
+- Controllare creazione docenti e studenti
 - Rendere le FAQ dinamiche tramite pannello di amministrazione
 - Aggiungere pulsante per abilitare/disabilitare il login per gli studenti
 - Abilitare il login degli studenti solo dopo una data

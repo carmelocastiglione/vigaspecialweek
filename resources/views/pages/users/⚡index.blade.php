@@ -5,13 +5,22 @@ use Flux\Flux;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Illuminate\Validation\ValidationException;
 
 new class extends Component
 {
     use WithPagination;
 
+    private const ROLE_LABELS = [
+        'admin' => 'Admin',
+        'teacher' => 'Docenti',
+        'student' => 'Studenti',
+    ];
+
     #[Title('Gestione Utenti')]
     public string $search = '';
+
+    public string $roleFilter = '';
 
     public string $sortField = 'created_at';
 
@@ -23,6 +32,19 @@ new class extends Component
 
     public function updatedSearch(): void
     {
+        $this->resetPage();
+    }
+
+    public function filterByRole(string $role): void
+    {
+        if (! array_key_exists($role, self::ROLE_LABELS)) {
+            throw ValidationException::withMessages([
+                'roleFilter' => 'Il ruolo selezionato non è valido.',
+            ]);
+        }
+
+        $this->resetValidation('roleFilter');
+        $this->roleFilter = $this->roleFilter === $role ? '' : $role;
         $this->resetPage();
     }
 
@@ -65,16 +87,30 @@ new class extends Component
     {
         $this->authorize('viewAny', User::class);
 
+        $roleCards = [];
+        foreach (self::ROLE_LABELS as $role => $label) {
+            $roleCards[] = [
+                'role' => $role,
+                'label' => $label,
+                'count' => User::role($role)->count(),
+            ];
+        }
+
         $users = User::query()
+            ->with('roles')
             ->when($this->search, function ($query) {
-                $query->where('name', 'ilike', "%{$this->search}%")
-                    ->orWhere('email', 'ilike', "%{$this->search}%");
+                $query->where(function ($query) {
+                    $query->where('name', 'ilike', "%{$this->search}%")
+                        ->orWhere('email', 'ilike', "%{$this->search}%");
+                });
             })
+            ->when($this->roleFilter, fn ($query) => $query->role($this->roleFilter))
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate(15);
 
         return [
             'users' => $users,
+            'roleCards' => $roleCards,
         ];
     }
 };
@@ -104,6 +140,30 @@ new class extends Component
             />
         </flux:field>
     </flux:card>
+
+    <div class="mb-6 grid grid-cols-1 gap-4 sm:grid-cols-3">
+        @foreach ($roleCards as $roleCard)
+            <flux:card class="p-0" wire:key="role-card-{{ $roleCard['role'] }}">
+                <button
+                    type="button"
+                    wire:click="filterByRole('{{ $roleCard['role'] }}')"
+                    aria-pressed="{{ $roleFilter === $roleCard['role'] ? 'true' : 'false' }}"
+                    @class([
+                        'w-full rounded-lg p-4 text-left transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-600',
+                        'bg-violet-50 ring-2 ring-violet-500 dark:bg-violet-950/40' => $roleFilter === $roleCard['role'],
+                        'hover:bg-zinc-50 dark:hover:bg-zinc-800' => $roleFilter !== $roleCard['role'],
+                    ])
+                >
+                    <span class="block text-sm font-medium text-zinc-600 dark:text-zinc-300">{{ $roleCard['label'] }}</span>
+                    <span class="mt-1 block text-3xl font-semibold text-zinc-900 dark:text-white">{{ $roleCard['count'] }}</span>
+                </button>
+            </flux:card>
+        @endforeach
+    </div>
+
+    @error('roleFilter')
+        <p class="mb-4 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
+    @enderror
 
     <!-- Tabella Utenti -->
     <flux:card>

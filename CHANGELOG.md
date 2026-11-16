@@ -1,5 +1,8 @@
 # Changelog
 
+2026-11-16:
+- Aggiunti profili docenti e studenti
+
 2026-11-15:
 - Aggiunta pagina like per gli studenti e per gli admin
 

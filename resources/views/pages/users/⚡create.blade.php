@@ -1,6 +1,10 @@
 <?php
 
 use App\Models\User;
+use App\Models\Department;
+use App\Models\SchoolClass;
+use App\Livewire\Forms\UserProfileForm;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Livewire\Attributes\Title;
 use Livewire\Component;
@@ -15,6 +19,7 @@ new class extends Component
     public string $password = '';
     public string $password_confirmation = '';
     public array $roles = [];
+    public UserProfileForm $profile;
 
     protected function rules(): array
     {
@@ -33,6 +38,7 @@ new class extends Component
         $this->authorize('create', User::class);
         
         $validated = $this->validate();
+        $profile = $this->profile->validateProfile();
 
         $data = [
             'name' => $validated['name'],
@@ -44,13 +50,15 @@ new class extends Component
             $data['password'] = Hash::make($validated['password']);
         }
 
-        $user = User::create($data);
-
-        if (! empty($validated['roles'])) {
-            $roleIds = $validated['roles'];
-            $roles = Role::whereIn('id', $roleIds)->pluck('name')->toArray();
+        DB::transaction(function () use ($data, $validated, $profile): void {
+            $user = User::create($data);
+            $roles = Role::whereIn('id', $validated['roles'])->pluck('name')->all();
+            if ($profile['type'] !== 'none') {
+                $roles[] = $profile['type'];
+            }
             $user->syncRoles($roles);
-        }
+            $this->profile->saveFor($user, $profile);
+        });
 
         session()->flash('status', 'Utente creato con successo!');
         $this->redirect(route('users.index'));
@@ -60,6 +68,8 @@ new class extends Component
     {
         return [
             'roles' => Role::all(),
+            'departments' => Department::orderBy('description')->get(),
+            'schoolClasses' => SchoolClass::orderBy('description')->get(),
         ];
     }
 };
@@ -130,6 +140,8 @@ new class extends Component
                 />
                 <flux:error name="password_confirmation" />
             </flux:field>
+
+            @include('pages.users.profile-fields', ['hasProfile' => false])
 
             <!-- Ruoli -->
             <flux:field>

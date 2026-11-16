@@ -1,6 +1,11 @@
 <?php
 
 use App\Models\User;
+use App\Models\Department;
+use App\Models\SchoolClass;
+use App\Livewire\Forms\UserProfileForm;
+use Illuminate\Support\Facades\DB;
+use Livewire\Attributes\Locked;
 use Illuminate\Support\Facades\Hash;
 use Livewire\Attributes\Title;
 use Livewire\Component;
@@ -16,6 +21,10 @@ new class extends Component
     public string $password = '';
     public string $password_confirmation = '';
     public array $roles = [];
+    public UserProfileForm $profile;
+
+    #[Locked]
+    public string $initialProfileType = 'none';
 
     public function mount(User $user): void
     {
@@ -24,6 +33,8 @@ new class extends Component
         $this->surname = $user->surname;
         $this->email = $user->email;
         $this->roles = $user->roles()->pluck('id')->toArray();
+        $this->profile->setUser($user);
+        $this->initialProfileType = $this->profile->type;
     }
 
     protected function rules(): array
@@ -43,22 +54,23 @@ new class extends Component
         $this->authorize('update', $this->user);
         
         $validated = $this->validate();
+        $profile = $this->profile->validateProfile($this->user);
 
-        $this->user->update([
-            'name' => $validated['name'],
-            'surname' => $validated['surname'],
-            'email' => $validated['email'],
-        ]);
-
-        if (! empty($validated['password'])) {
-            $this->user->update([
-                'password' => Hash::make($validated['password']),
-            ]);
-        }
-
-        $roleIds = $validated['roles'];
-        $roles = Role::whereIn('id', $roleIds)->pluck('name')->toArray();
-        $this->user->syncRoles($roles);
+        DB::transaction(function () use ($validated, $profile): void {
+            $user = User::whereKey($this->user->getKey())->lockForUpdate()->firstOrFail();
+            $data = [
+                'name' => $validated['name'],
+                'surname' => $validated['surname'],
+                'email' => $validated['email'],
+            ];
+            if (! empty($validated['password'])) {
+                $data['password'] = Hash::make($validated['password']);
+            }
+            $user->update($data);
+            $roles = Role::whereIn('id', $validated['roles'])->pluck('name')->all();
+            $user->syncRoles($roles);
+            $this->profile->saveFor($user, $profile);
+        });
 
         session()->flash('status', 'Utente aggiornato con successo!');
         $this->redirect(route('users.index'));
@@ -68,6 +80,8 @@ new class extends Component
     {
         return [
             'roles' => Role::all(),
+            'departments' => Department::orderBy('description')->get(),
+            'schoolClasses' => SchoolClass::orderBy('description')->get(),
         ];
     }
 };
@@ -141,6 +155,8 @@ new class extends Component
                     <flux:error name="password_confirmation" />
                 </flux:field>
             </div>
+
+            @include('pages.users.profile-fields', ['hasProfile' => $initialProfileType !== 'none'])
 
             <!-- Ruoli -->
             <flux:field>
