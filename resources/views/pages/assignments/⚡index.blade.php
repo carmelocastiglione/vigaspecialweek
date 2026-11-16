@@ -94,7 +94,23 @@ new class extends Component
     {
         Gate::authorize('assignments.delete');
 
-        TeachingAssignment::query()->findOrFail($assignmentId)->delete();
+        $removed = DB::transaction(function () use ($assignmentId): bool {
+            $assignment = TeachingAssignment::query()->lockForUpdate()->findOrFail($assignmentId);
+
+            if ($assignment->recommendedStudents()->exists()) {
+                return false;
+            }
+
+            $assignment->delete();
+
+            return true;
+        });
+
+        if (! $removed) {
+            Flux::toast(text: 'Rimuovi le segnalazioni di recupero prima di eliminare questa assegnazione.', variant: 'danger');
+
+            return;
+        }
 
         Flux::toast(text: 'Assegnazione rimossa con successo.', variant: 'success');
     }

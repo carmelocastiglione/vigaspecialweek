@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 #[Fillable(['school_class_id', 'subject_id'])]
 class TeachingAssignment extends Model
@@ -25,5 +26,11 @@ class TeachingAssignment extends Model
     public function subject(): BelongsTo
     {
         return $this->belongsTo(Subject::class);
+    }
+
+    /** @return BelongsToMany<StudentProfile, $this> */
+    public function recommendedStudents(): BelongsToMany
+    {
+        return $this->belongsToMany(StudentProfile::class, 'recovery_recommendations')->withTimestamps();
     }
 }

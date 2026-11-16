@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\User;
+use App\Services\UserProfileManager;
 use Flux\Flux;
 use Livewire\Attributes\Title;
 use Livewire\Component;
@@ -73,7 +74,13 @@ new class extends Component
 
         $this->authorize('delete', $this->userToDelete);
 
-        $this->userToDelete->delete();
+        try {
+            app(UserProfileManager::class)->deleteUser($this->userToDelete);
+        } catch (ValidationException $exception) {
+            Flux::toast(text: $exception->errors()['account'][0], variant: 'danger');
+
+            return;
+        }
         $this->userToDelete = null;
         $this->showDeleteModal = false;
 

@@ -5,6 +5,7 @@
 - Aggiunta assegnazioni dei docenti a classi e materie
 - Aggiunta vista "le mie classi" nella pagina dei docenti
 - Aggiunta vista "le mie attività" nella pagina dei docenti
+- Aggiunta possibilità per i docenti di segnalare gli studenti che necessitano di rinforzo
 
 2026-11-15:
 - Aggiunta pagina like per gli studenti e per gli admin

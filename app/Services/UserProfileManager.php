@@ -29,6 +29,21 @@ class UserProfileManager
                 return;
             }
 
+            $studentProfile = $user->studentProfile()->lockForUpdate()->first();
+            if ($studentProfile && $studentProfile->recommendingAssignments()->exists()) {
+                if ($type === 'teacher') {
+                    throw ValidationException::withMessages([
+                        'profile.type' => 'Rimuovi le segnalazioni di recupero prima di cambiare il tipo di profilo.',
+                    ]);
+                }
+
+                if (array_key_exists('school_class_id', $attributes) && (int) $attributes['school_class_id'] !== (int) $studentProfile->school_class_id) {
+                    throw ValidationException::withMessages([
+                        'profile.school_class_id' => 'Rimuovi le segnalazioni di recupero prima di cambiare la classe.',
+                    ]);
+                }
+            }
+
             if ($type === 'student') {
                 $teacherProfile = $user->teacherProfile()->lockForUpdate()->first();
                 if ($teacherProfile && $teacherProfile->teachingAssignments()->exists()) {
@@ -44,5 +59,49 @@ class UserProfileManager
                 $user->teacherProfile()->updateOrCreate([], $attributes);
             }
         });
+    }
+
+    public function deleteUser(User $user): void
+    {
+        DB::transaction(function () use ($user): void {
+            $user = User::whereKey($user->getKey())->lockForUpdate()->firstOrFail();
+            $studentProfile = $user->studentProfile()->lockForUpdate()->first();
+
+            if ($studentProfile && $studentProfile->recommendingAssignments()->exists()) {
+                throw ValidationException::withMessages([
+                    'account' => 'Rimuovi le segnalazioni di recupero prima di eliminare questo utente.',
+                ]);
+            }
+
+            if ($this->teacherHasRecommendations($user)) {
+                throw ValidationException::withMessages([
+                    'account' => 'Rimuovi le segnalazioni di recupero prima di eliminare questo utente.',
+                ]);
+            }
+
+            $user->delete();
+        });
+    }
+
+    public function assertTeacherRoleCanBeRemoved(User $user): void
+    {
+        if ($this->teacherHasRecommendations($user)) {
+            throw ValidationException::withMessages([
+                'roles' => 'Rimuovi le segnalazioni di recupero prima di togliere il ruolo docente.',
+            ]);
+        }
+    }
+
+    private function teacherHasRecommendations(User $user): bool
+    {
+        $teacherProfile = $user->teacherProfile()->lockForUpdate()->first();
+
+        if (! $teacherProfile) {
+            return false;
+        }
+
+        $teacherProfile->teachingAssignments()->lockForUpdate()->get(['id']);
+
+        return $teacherProfile->teachingAssignments()->whereHas('recommendedStudents')->exists();
     }
 }

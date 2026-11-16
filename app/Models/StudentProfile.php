@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 #[Fillable(['school_class_id'])]
 class StudentProfile extends Model
@@ -24,5 +25,11 @@ class StudentProfile extends Model
     public function schoolClass(): BelongsTo
     {
         return $this->belongsTo(SchoolClass::class);
+    }
+
+    /** @return BelongsToMany<TeachingAssignment, $this> */
+    public function recommendingAssignments(): BelongsToMany
+    {
+        return $this->belongsToMany(TeachingAssignment::class, 'recovery_recommendations')->withTimestamps();
     }
 }

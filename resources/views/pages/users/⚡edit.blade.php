@@ -4,6 +4,7 @@ use App\Models\User;
 use App\Models\Department;
 use App\Models\SchoolClass;
 use App\Livewire\Forms\UserProfileForm;
+use App\Services\UserProfileManager;
 use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Locked;
 use Illuminate\Support\Facades\Hash;
@@ -68,6 +69,9 @@ new class extends Component
             }
             $user->update($data);
             $roles = Role::whereIn('id', $validated['roles'])->pluck('name')->all();
+            if ($user->hasRole('teacher') && ! in_array('teacher', $roles, true)) {
+                app(UserProfileManager::class)->assertTeacherRoleCanBeRemoved($user);
+            }
             $user->syncRoles($roles);
             $this->profile->saveFor($user, $profile);
         });
