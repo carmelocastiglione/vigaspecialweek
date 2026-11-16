@@ -25,6 +25,7 @@ Route::middleware(['auth', 'verified', 'role:student'])->group(function () {
 Route::middleware(['auth', 'verified', 'role:teacher'])->group(function () {
     Route::livewire('/teacher/classes', 'pages::teacher.classes')->name('teacher.classes');
     Route::livewire('/teacher/classes/{assignment}', 'pages::teacher.class-details')->whereNumber('assignment')->name('teacher.classes.show');
+    Route::livewire('/teacher/activities', 'pages::teacher.activities')->name('teacher.activities');
 });
 
 Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->group(function () {

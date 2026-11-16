@@ -28,6 +28,9 @@
                     <flux:sidebar.item :href="route('teacher.classes')" :current="request()->routeIs('teacher.classes*')" wire:navigate>
                         Le mie classi
                     </flux:sidebar.item>
+                    <flux:sidebar.item :href="route('teacher.activities')" :current="request()->routeIs('teacher.activities*')" wire:navigate>
+                        Le mie attività
+                    </flux:sidebar.item>
                 </flux:sidebar.group>
                 @endrole
                 @can('admin.site')
