@@ -23,6 +23,13 @@
                     </flux:sidebar.item>
                 </flux:sidebar.group>
                 @endrole
+                @role('teacher')
+                <flux:sidebar.group heading="Menu docente" class="grid">
+                    <flux:sidebar.item :href="route('teacher.classes')" :current="request()->routeIs('teacher.classes*')" wire:navigate>
+                        Le mie classi
+                    </flux:sidebar.item>
+                </flux:sidebar.group>
+                @endrole
                 @can('admin.site')
                 <flux:sidebar.group :heading="__('Administration')" class="grid">
                     <flux:sidebar.item :href="route('users.index')" :current="request()->routeIs('users.*')" wire:navigate>

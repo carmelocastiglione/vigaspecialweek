@@ -22,6 +22,11 @@ Route::middleware(['auth', 'verified', 'role:student'])->group(function () {
     Route::livewire('/student/activities/{activity}', 'pages::student.activity-details')->name('student.activities.show');
 });
 
+Route::middleware(['auth', 'verified', 'role:teacher'])->group(function () {
+    Route::livewire('/teacher/classes', 'pages::teacher.classes')->name('teacher.classes');
+    Route::livewire('/teacher/classes/{assignment}', 'pages::teacher.class-details')->whereNumber('assignment')->name('teacher.classes.show');
+});
+
 Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->group(function () {
     // Impostazioni amministrative
     Route::livewire('/settings', 'pages::settings.admin.index')->name('settings.admin.index');

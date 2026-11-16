@@ -3,6 +3,7 @@
 2026-11-16:
 - Aggiunti profili docenti e studenti
 - Aggiunta assegnazioni dei docenti a classi e materie
+- Aggiunta vista "le mie classi" nella pagina dei docenti
 
 2026-11-15:
 - Aggiunta pagina like per gli studenti e per gli admin

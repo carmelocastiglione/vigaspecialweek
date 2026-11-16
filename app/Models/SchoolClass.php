@@ -38,4 +38,10 @@ class SchoolClass extends Model
     {
         return $this->hasMany(TeachingAssignment::class);
     }
+
+    /** @return HasMany<StudentProfile, $this> */
+    public function studentProfiles(): HasMany
+    {
+        return $this->hasMany(StudentProfile::class);
+    }
 }
