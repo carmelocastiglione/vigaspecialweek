@@ -2,6 +2,7 @@
 
 2026-11-16:
 - Aggiunti profili docenti e studenti
+- Aggiunta assegnazioni dei docenti a classi e materie
 
 2026-11-15:
 - Aggiunta pagina like per gli studenti e per gli admin

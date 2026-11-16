@@ -51,6 +51,13 @@ new class extends Component
 
         $this->authorize('delete', $this->schoolClassToDelete);
 
+        if ($this->schoolClassToDelete->teachingAssignments()->exists()) {
+            $this->showDeleteModal = false;
+            Flux::toast(text: 'Rimuovi le assegnazioni di questa classe prima di eliminarla.', variant: 'danger');
+
+            return;
+        }
+
         $this->schoolClassToDelete->delete();
         $this->schoolClassToDelete = null;
         $this->showDeleteModal = false;

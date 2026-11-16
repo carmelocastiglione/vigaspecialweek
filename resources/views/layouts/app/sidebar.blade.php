@@ -43,6 +43,13 @@
                     <flux:sidebar.item :href="route('school-classes.index')" :current="request()->routeIs('school-classes.*')" wire:navigate>
                         Classi
                     </flux:sidebar.item>
+                    @role('admin')
+                        @can('assignments.view')
+                            <flux:sidebar.item :href="route('assignments.index')" :current="request()->routeIs('assignments.*')" wire:navigate>
+                                Assegnazioni
+                            </flux:sidebar.item>
+                        @endcan
+                    @endrole
                     <flux:sidebar.item :href="route('activities.index')" :current="request()->routeIs('activities.*')" wire:navigate>
                         Attività
                     </flux:sidebar.item>

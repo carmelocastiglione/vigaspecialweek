@@ -46,6 +46,14 @@
                 href="{{ route('activities.index') }}" 
             />
             @role('admin')
+                @can('assignments.view')
+                    <x-card-dashboard
+                        title="Assegnazioni"
+                        value="{{ $assignmentsCount }}"
+                        label="Gestisci assegnazioni"
+                        href="{{ route('assignments.index') }}"
+                    />
+                @endcan
             <x-card-dashboard
                 title="Like"
                 value="{{ $likesCount }}"

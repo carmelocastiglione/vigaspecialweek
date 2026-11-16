@@ -30,6 +30,13 @@ class UserProfileManager
             }
 
             if ($type === 'student') {
+                $teacherProfile = $user->teacherProfile()->lockForUpdate()->first();
+                if ($teacherProfile && $teacherProfile->teachingAssignments()->exists()) {
+                    throw ValidationException::withMessages([
+                        'profile.type' => 'Rimuovi le assegnazioni del docente prima di cambiare il tipo di profilo.',
+                    ]);
+                }
+
                 $user->teacherProfile()->delete();
                 $user->studentProfile()->updateOrCreate([], $attributes);
             } else {

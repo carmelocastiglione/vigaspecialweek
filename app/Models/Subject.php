@@ -2,11 +2,11 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Carbon\Carbon; 
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @property string|null $internal_id
@@ -17,7 +17,7 @@ use Carbon\Carbon;
  */
 #[Fillable(['internal_id', 'description', 'department_id'])]
 
-class Subject extends Model  
+class Subject extends Model
 {
     use HasFactory;
 
@@ -29,4 +29,9 @@ class Subject extends Model
         return $this->belongsTo(Department::class);
     }
 
+    /** @return HasMany<TeachingAssignment, $this> */
+    public function teachingAssignments(): HasMany
+    {
+        return $this->hasMany(TeachingAssignment::class);
+    }
 }

@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @property TeacherJob|null $job
@@ -52,5 +53,11 @@ class TeacherProfile extends Model
     public function responsibleDepartment(): BelongsTo
     {
         return $this->belongsTo(Department::class, 'responsible_department_id');
+    }
+
+    /** @return HasMany<TeachingAssignment, $this> */
+    public function teachingAssignments(): HasMany
+    {
+        return $this->hasMany(TeachingAssignment::class);
     }
 }

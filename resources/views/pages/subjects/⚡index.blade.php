@@ -51,6 +51,13 @@ new class extends Component
 
         $this->authorize('delete', $this->subjectToDelete);
 
+        if ($this->subjectToDelete->teachingAssignments()->exists()) {
+            $this->showDeleteModal = false;
+            Flux::toast(text: 'Rimuovi le assegnazioni di questa materia prima di eliminarla.', variant: 'danger');
+
+            return;
+        }
+
         $this->subjectToDelete->delete();
         $this->subjectToDelete = null;
         $this->showDeleteModal = false;

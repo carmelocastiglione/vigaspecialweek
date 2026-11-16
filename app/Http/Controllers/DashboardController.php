@@ -8,6 +8,7 @@ use App\Models\Classroom;
 use App\Models\Department;
 use App\Models\SchoolClass;
 use App\Models\Subject;
+use App\Models\TeachingAssignment;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
@@ -27,6 +28,7 @@ class DashboardController extends Controller
             $data['classroomsCount'] = Classroom::count();
             $data['schoolClassesCount'] = SchoolClass::count();
             $data['activitiesCount'] = Activity::count();
+            $data['assignmentsCount'] = TeachingAssignment::count();
             $data['likesCount'] = DB::table('activity_likes')->count();
         }
 

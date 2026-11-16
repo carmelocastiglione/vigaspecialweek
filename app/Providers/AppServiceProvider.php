@@ -32,6 +32,10 @@ class AppServiceProvider extends ServiceProvider
 
         // Spatie può autorizzare prima di questo controllo se esiste un permesso con lo stesso nome dell'abilità.
         Gate::before(function ($user, $ability, array $arguments) {
+            if (in_array($ability, ['assignments.view', 'assignments.create', 'assignments.delete'], true)) {
+                return null;
+            }
+
             // Il primo argomento è il modello interessato o la sua classe.
             $subject = $arguments[0] ?? null;
 

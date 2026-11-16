@@ -29,6 +29,7 @@ Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->group(fu
     Route::livewire('/users', 'pages::users.index')->name('users.index');
     Route::livewire('/users/create', 'pages::users.create')->name('users.create');
     Route::livewire('/users/{user}/edit', 'pages::users.edit')->name('users.edit');
+    Route::livewire('/assignments', 'pages::assignments.index')->name('assignments.index');
     // Gestione Dipartimenti
     Route::livewire('/departments', 'pages::departments.index')->name('departments.index');
     Route::livewire('/departments/create', 'pages::departments.create')->name('departments.create');
