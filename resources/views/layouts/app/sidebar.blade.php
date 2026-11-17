@@ -67,6 +67,9 @@
                     <flux:sidebar.item :href="route('admin.likes')" :current="request()->routeIs('admin.likes')" wire:navigate>
                         Like
                     </flux:sidebar.item>
+                    <flux:sidebar.item :href="route('admin.recovery-recommendations')" :current="request()->routeIs('admin.recovery-recommendations.*')" wire:navigate>
+                        Segnalazioni rinforzo
+                    </flux:sidebar.item>
                     @endrole
                 </flux:sidebar.group>
                 @endcan

@@ -61,6 +61,8 @@ Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->group(fu
     Route::livewire('/activities/create', 'pages::activities.create')->name('activities.create');
     Route::livewire('/activities/{activity}/edit', 'pages::activities.edit')->name('activities.edit');
     Route::livewire('/likes', 'pages::likes.index')->name('admin.likes');
+    Route::livewire('/recovery-recommendations', 'pages::recovery-recommendations.index')->name('admin.recovery-recommendations');
+    Route::livewire('/recovery-recommendations/{assignment}', 'pages::recovery-recommendations.show')->whereNumber('assignment')->name('admin.recovery-recommendations.show');
 });
 
 // require __DIR__.'/settings.php';

@@ -1,6 +1,5 @@
 # TODO
 
-- Gestione rinforzi nella pagina admin
 - Completare la pagina di gestione attività
 - Controllare la pagina dei like alle attività per studenti e admin
 - Aggiungere pagina attività per docenti (con visualizzazione dei like ricevuti)

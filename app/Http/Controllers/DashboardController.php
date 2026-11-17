@@ -30,6 +30,7 @@ class DashboardController extends Controller
             $data['activitiesCount'] = Activity::count();
             $data['assignmentsCount'] = TeachingAssignment::count();
             $data['likesCount'] = DB::table('activity_likes')->count();
+            $data['recoveryRecommendationsCount'] = DB::table('recovery_recommendations')->count();
         }
 
         return view('dashboard', $data);

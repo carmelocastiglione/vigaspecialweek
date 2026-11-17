@@ -60,6 +60,12 @@
                 label="Visualizza like per attività"
                 href="{{ route('admin.likes') }}"
             />
+            <x-card-dashboard
+                title="Segnalazioni rinforzo"
+                value="{{ $recoveryRecommendationsCount }}"
+                label="Visualizza segnalazioni per docente"
+                href="{{ route('admin.recovery-recommendations') }}"
+            />
             @endrole
         </div>
         @endcan

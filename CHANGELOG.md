@@ -1,5 +1,8 @@
 # Changelog
 
+2026-11-17:
+- Aggiunta gestione segnalazioni rinforzo nella pagina admin
+
 2026-11-16:
 - Aggiunti profili docenti e studenti
 - Aggiunta assegnazioni dei docenti a classi e materie
