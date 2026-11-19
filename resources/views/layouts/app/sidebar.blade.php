@@ -79,6 +79,11 @@
 
             @can('admin.site')
             <flux:sidebar.nav>
+                @role('admin')
+                <flux:sidebar.item icon="arrow-up-tray" :href="route('imports.index')" :current="request()->routeIs('imports.*')" wire:navigate>
+                    Importa dati
+                </flux:sidebar.item>
+                @endrole
                 <flux:sidebar.item icon="cog-6-tooth" :href="route('settings.admin.index')" :current="request()->routeIs('settings.*')" wire:navigate>
                         Impostazioni
                     </flux:sidebar.item>

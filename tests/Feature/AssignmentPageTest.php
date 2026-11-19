@@ -284,3 +284,36 @@ it('prevents deleting a class or subject while it has assignments', function () 
     $this->assertModelExists($schoolClass);
     $this->assertModelExists($subject);
 });
+
+it('prevents deleting a department with assigned teachers', function () {
+    $admin = assignmentAdmin();
+    $department = Department::factory()->create();
+    $teacher = TeacherProfile::factory()->create(['department_id' => $department->id]);
+    $subject = Subject::factory()->create(['department_id' => $department->id]);
+
+    Livewire::actingAs($admin)->test('pages::departments.index')
+        ->call('confirmDelete', $department->id)
+        ->call('delete')
+        ->assertSet('showDeleteModal', false)
+        ->assertDispatched('toast-show', fn ($event, $params) => $params['slots']['text'] === 'Assegna i docenti a un altro dipartimento prima di eliminarlo.');
+
+    $this->assertModelExists($department);
+    $this->assertDatabaseHas('teacher_profiles', ['id' => $teacher->id, 'department_id' => $department->id]);
+    $this->assertDatabaseHas('subjects', ['id' => $subject->id, 'department_id' => $department->id]);
+});
+
+it('deletes a department without assigned teachers and preserves its other related records', function () {
+    $admin = assignmentAdmin();
+    $department = Department::factory()->create();
+    $teacher = TeacherProfile::factory()->create(['responsible_department_id' => $department->id]);
+    $subject = Subject::factory()->create(['department_id' => $department->id]);
+
+    Livewire::actingAs($admin)->test('pages::departments.index')
+        ->call('confirmDelete', $department->id)
+        ->call('delete')
+        ->assertSet('showDeleteModal', false);
+
+    $this->assertModelMissing($department);
+    $this->assertDatabaseHas('teacher_profiles', ['id' => $teacher->id, 'responsible_department_id' => null]);
+    $this->assertDatabaseHas('subjects', ['id' => $subject->id, 'department_id' => null]);
+});

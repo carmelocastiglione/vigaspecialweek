@@ -29,6 +29,7 @@ Route::middleware(['auth', 'verified', 'role:teacher'])->group(function () {
 });
 
 Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->group(function () {
+    Route::livewire('/imports', 'pages::imports.index')->name('imports.index');
     // Impostazioni amministrative
     Route::livewire('/settings', 'pages::settings.admin.index')->name('settings.admin.index');
     // Gestione Utenti

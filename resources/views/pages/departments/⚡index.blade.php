@@ -51,6 +51,13 @@ new class extends Component
 
         $this->authorize('delete', $this->departmentToDelete);
 
+        if ($this->departmentToDelete->teacherProfiles()->exists()) {
+            $this->showDeleteModal = false;
+            Flux::toast(text: 'Assegna i docenti a un altro dipartimento prima di eliminarlo.', variant: 'danger');
+
+            return;
+        }
+
         $this->departmentToDelete->delete();
         $this->departmentToDelete = null;
         $this->showDeleteModal = false;

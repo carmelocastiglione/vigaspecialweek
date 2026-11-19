@@ -1,5 +1,11 @@
 # Changelog
 
+2026-11-19:
+- Fix eliminazione dipartimento quando vi sono docenti assegnati
+
+2026-11-18:
+- Aggiunta pagina importazione CSV
+
 2026-11-17:
 - Aggiunta gestione segnalazioni rinforzo nella pagina admin
 

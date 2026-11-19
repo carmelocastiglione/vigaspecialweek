@@ -8,6 +8,7 @@
 - Aggiungere pulsante per abilitare/disabilitare il login per gli studenti
 - Abilitare il login degli studenti solo dopo una data
 - Pagina dei permessi utente
+- Segnalazione errore nel login
 
 # SCADENZE
 

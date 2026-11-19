@@ -2,10 +2,11 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Carbon\Carbon; 
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @property string|null $internal_id
@@ -15,8 +16,13 @@ use Carbon\Carbon;
  */
 #[Fillable(['internal_id', 'description'])]
 
-class Department extends Model  
+class Department extends Model
 {
     use HasFactory;
 
+    /** @return HasMany<TeacherProfile, $this> */
+    public function teacherProfiles(): HasMany
+    {
+        return $this->hasMany(TeacherProfile::class);
+    }
 }
